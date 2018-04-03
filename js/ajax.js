@@ -7,11 +7,11 @@ const $ = function(selector) {
 function Ajax(set) {
 	console.log(this);
 
-	set.async 		= typeof set.async !== "undefined" ? set.async : false;
-	set.body 		= typeof set.body !== "undefined" ? set.body : null;
-	set.dataType	= typeof set.dataType !== "undefined" ? set.dataType : 'html';
-	set.type 		= typeof set.type !== "undefined" ? set.type : 'GET';
-	set.url 		= typeof set.url !== "undefined" ? set.url : null;
+	set.url 		= set.url 		|| null;
+	set.body 		= set.body 		|| null;
+	set.async 		= set.async 	|| false;
+	set.type 		= set.type 		|| 'GET';
+	set.dataType	= set.dataType 	|| 'html';
 
 	this.response = {};
 

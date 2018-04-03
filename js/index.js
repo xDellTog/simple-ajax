@@ -1,68 +1,33 @@
-const $ = document.querySelector.bind(document);
-const app = window;
+'use strict';
 
-app.onload = function() {
-	console.log('ready!');
+(function() {
 
-	$('#btnListar').onclick = function(ev) {
+	$('#btnGetHtml').onclick = function(ev) {
 		ev.preventDefault();
-		console.log('btnListarClicked');
-		let ajax = new Ajax();
-		let data = {
-			nome: 'Daniel',
-			senha: 'Senha',
-			sexo: 'Masculino'
-		};
-		ajax.create('POST', 'main.php', true, data);
+		let ajax = new Ajax({
+			type: 'GET',
+			url: '../php/main.php',
+			dataType: 'html',
+			async: false,
+			body: {
+				nome: 'Daniel',
+				senha: 'Senha',
+				sexo: 'Masculino'
+			}
+		});
 	}
-
-
-
-/*
-	$('#btnListar').on('click', function(event) {
-		event.preventDefault();
-		$('#lista').empty();
-		$.ajax({
-			url: '../php/Main.php',
-			type: 'POST',
+	$('#btnGetJson').onclick = function (ev) {
+		ev.preventDefault();
+		let ajax = new Ajax({
+			type: 'GET',
+			url: '../php/main.php',
 			dataType: 'json',
-			data: { acao: 'listar' },
-		})
-		.done(function(json) {
-			if (json.result) {
-				$('#lista').append(json.data);
-			} else {
-				alert(json.message);
+			async: false,
+			body: {
+				nome: 'Daniel',
+				senha: 'Senha',
+				sexo: 'Masculino'
 			}
-		})
-		.fail(function(xhr) {
-			console.log(xhr.responseText);
-		})
-	});
-
-	$('#btnCadastrar').on('click', function(event) {
-		event.preventDefault();
-		$.ajax({
-			url: '../php/Main.php',
-			type: 'POST',
-			dataType: 'json',
-			data: {
-				acao: 'insert',
-				nome: $('#txtNome').val(),
-				email: $('#txtEmail').val(),
-				sexo: $('#txtSexo').val()
-			},
-		})
-		.done(function(json) {
-			if (json.result) {
-				alert(json.message);
-			} else {
-				alert(json.message);
-			}
-		})
-		.fail(function(xhr) {
-			console.log(xhr.responseText);
-		})
-	});
-*/
-}
+		});
+	}
+}());
