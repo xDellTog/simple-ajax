@@ -11,7 +11,6 @@
 
 		btnGetHtml.onclick = function(ev) {
 			ev.preventDefault();
-			console.log('clicked');
 			let ajax = new Ajax({
 				type: 'GET',
 				url: '../view/get.html',
@@ -34,7 +33,6 @@
 
 		btnPostHtml.onclick = function (ev) {
 			ev.preventDefault();
-			console.log('clicked');
 			let ajax = new Ajax({
 				type: 'POST',
 				url: '../php/main.php',
