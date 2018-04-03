@@ -10,11 +10,11 @@ function Ajax(set) {
 
 	this.response = {};
 
-	this.url	= set.url 	|| null;
-	this.body	= set.body 	|| null;
-	this.async	= set.async 	|| false;
-	this.type	= set.type 	|| 'GET';
-	this.dataType	= set.dataType 	|| 'html';
+	this.url = set.url || null;
+	this.body = set.body || null;
+	this.async = set.async || false;
+	this.type = set.type || 'GET';
+	this.dataType = set.dataType || 'html';
 
 	this.transform = function (body) {
 		var aux = JSON.stringify(body);
