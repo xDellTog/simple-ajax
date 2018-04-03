@@ -2,8 +2,7 @@
 
 (
 	function() {
-		console.log('ready!');
-
+		
 		let btnGetHtml = $('#btnGetHtml');
 		let btnGetJson = $('#btnGetJson');
 		let btnPostHtml = $('#btnPostHtml');
@@ -13,7 +12,7 @@
 			ev.preventDefault();
 			let ajax = new Ajax({
 				type: 'GET',
-				url: '../view/get.html',
+				url: 'get/get.html',
 				dataType: 'html',
 				async: false
 			});
@@ -24,7 +23,7 @@
 			ev.preventDefault();
 			let ajax = new Ajax({
 				type: 'GET',
-				url: '../get.json',
+				url: 'get/get.json',
 				dataType: 'json',
 				async: false
 			});
@@ -35,14 +34,10 @@
 			ev.preventDefault();
 			let ajax = new Ajax({
 				type: 'POST',
-				url: '../php/main.php',
+				url: 'php/index.php',
 				dataType: 'html',
 				async: false,
-				body: {
-					acao: 'PostHtml',
-					nome: 'Daniel',
-					email: 'dk@mail.com'
-				}
+				body: { opt: 'HTML' }
 			});
 			console.dir(ajax.response);
 		}
@@ -51,13 +46,13 @@
 			ev.preventDefault();
 			let ajax = new Ajax({
 				type: 'POST',
-				url: '../php/main.php',
+				url: 'php/index.php',
 				dataType: 'json',
 				async: false,
 				body: {
-					acao: 'PostJson',
-					nome: 'Daniel',
-					email: 'dk@mail.com'
+					opt: 'JSON',
+					Data: 'Loaded by POST JSON',
+					Name: 'Simple-Ajax'
 				}
 			});
 			console.dir(ajax.response);

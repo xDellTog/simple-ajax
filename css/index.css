@@ -2,8 +2,6 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
-} a {
-	cursor: pointer;
 }
 
 .row {
@@ -16,11 +14,6 @@
 	align-items: center;
 	justify-content: center;
 }
-
-/* Padding */
-.pd-10 { padding: 10px; }
-.pd-20 { padding: 20px; }
-.pd-30 { padding: 30px; }
 
 .btn {
 	border: 0;
