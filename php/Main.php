@@ -1,7 +1,18 @@
 <?php
-	echo($_POST["nome"]);
-	echo($_POST["sexo"]);
-	echo($_POST["senha"]);
+	$arr = array();
 
-	// echo "Deu certo Caralho!";
+	switch ($_POST["acao"]) {
+		case 'PostHtml':
+			echo($_POST["nome"]);
+			echo($_POST["email"]);	
+			break;
+		case 'PostJson':
+			$arr["nome"] = $_POST["nome"];
+			$arr["email"] = ($_POST["email"]);
+			echo json_encode($arr);
+			break;
+		default:
+			echo 'jooj';
+			break;
+	}
 ?>
