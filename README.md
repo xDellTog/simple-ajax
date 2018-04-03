@@ -1,1 +1,1 @@
-# simple-ajax
+# Simple Ajax
