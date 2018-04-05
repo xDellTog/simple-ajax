@@ -6,7 +6,7 @@
 			echo "<h1> Loaded by POST HTML </h1>";
 			break;
 		case 'TXT':
-			echo "Hello World!";
+			echo "Loaded by POST TEXT!";
 			break;
 		case 'JSON':
 			$arr["Data"] = $_POST["Data"];

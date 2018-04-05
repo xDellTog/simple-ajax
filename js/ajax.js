@@ -27,7 +27,7 @@ function Ajax(set) {
 	}
 
 	this.getDataType = function(xhr) {
-		if ((this.dataType === 'txt') || (this.dataType === 'html')) {
+		if ((this.dataType === 'text') || (this.dataType === 'html')) {
 			if ((xhr.readyState === 4) && (xhr.status === 200)) {
 				this.response = xhr.responseText;
 			} else {
