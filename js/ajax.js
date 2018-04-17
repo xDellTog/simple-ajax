@@ -1,23 +1,34 @@
 'use strict';
 
-const $ = function(selector) {
-	return document.querySelector(selector);
-}
+const $ = document.querySelector.bind(document);
 
 function Ajax(set) {
-
-	let xhr = new XMLHttpRequest();
-
+	
 	this.response = {};
 
-	this.url = set.url || null;
-	this.body = set.body || null;
-	this.async = set.async || false;
-	this.type = set.type || 'GET';
-	this.dataType = set.dataType || 'html';
+	let url = set.url || null;
+	let body = set.body || null;
+	let async = set.async || false;
+	let type = set.type.toUpperCase() || 'GET';
+	let dataType = set.dataType.toUpperCase() || 'HTML';
+	let xhr = new XMLHttpRequest();
 
-	this.transform = function (body) {
-		var aux = JSON.stringify(body);
+	if (url !== null) {
+		xhr.open(type, url, async);
+		if (type === 'GET') {
+			xhr.send();
+			getDataType(this,xhr);
+		} else if (type === 'POST') {
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send(transform(body));
+			getDataType(this,xhr);
+		}	
+	} else {
+		throw new Error('URL null');
+	}
+
+	function transform(body) {
+		let aux = JSON.stringify(body);
 		aux = aux.replace(/:/g, '=');
 		aux = aux.replace(/,/g, '&');
 		aux = aux.replace(/"/g, '');
@@ -26,33 +37,19 @@ function Ajax(set) {
 		return aux;
 	}
 
-	this.getDataType = function(xhr) {
-		if ((this.dataType === 'text') || (this.dataType === 'html')) {
+	function getDataType(that,xhr) {
+		if ((dataType === 'TEXT') || (dataType === 'HTML')) {
 			if ((xhr.readyState === 4) && (xhr.status === 200)) {
-				this.response = xhr.responseText;
+				that.response = xhr.responseText;
 			} else {
-				console.log('error');
+				throw new Error('Code ' + xhr.status);
 			}
-		} else if (this.dataType === 'json') {
+		} else if (dataType === 'JSON') {
 			if ((xhr.readyState === 4) && (xhr.status === 200)) {
-				this.response = JSON.parse(xhr.responseText);
+				that.response = JSON.parse(xhr.responseText);
 			} else {
-				console.log('error');
+				throw new Error('Code ' + xhr.status);
 			}
 		}
-	}
-
-	if (this.url !== null) {
-		xhr.open(this.type, this.url, this.async);
-		if (this.type === 'GET') {
-			xhr.send();
-			this.getDataType(xhr);
-		} else if (this.type === 'POST') {
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send(this.transform(this.body));
-			this.getDataType(xhr);
-		}	
-	} else {
-		console.log('error');
 	}
 }
