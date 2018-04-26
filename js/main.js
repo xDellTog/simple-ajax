@@ -1,5 +1,7 @@
 'use strict';
 
+const $ = document.querySelector.bind(document);
+
 (
 	function() {
 		
@@ -16,8 +18,7 @@
 			let ajax = new Ajax({
 				type: 'GET',
 				url: 'res/get.html',
-				dataType: 'html',
-				async: false
+				dataType: 'html'
 			});
 			divResult.innerHTML += ajax.response;
 		}
@@ -27,8 +28,7 @@
 				type: 'POST',
 				url: 'res/index.php',
 				dataType: 'html',
-				async: false,
-				body: { opt: 'HTML' }
+				body: { opt: 'html' }
 			});
 			divResult.innerHTML += ajax.response;
 		}
@@ -39,7 +39,6 @@
 				type: 'GET',
 				url: 'res/get.json',
 				dataType: 'json',
-				async: false
 			});
 			console.dir(ajax.response);
 		}
@@ -49,7 +48,6 @@
 				type: 'POST',
 				url: 'res/index.php',
 				dataType: 'json',
-				async: false,
 				body: {
 					opt: 'JSON',
 					Data: 'Loaded by POST JSON',
@@ -65,7 +63,6 @@
 				type: 'GET',
 				url: 'res/get.txt',
 				dataType: 'text',
-				async: false
 			});
 			console.dir(ajax.response);
 			divResult.innerHTML += ajax.response;
@@ -76,7 +73,6 @@
 				type: 'POST',
 				url: 'res/index.php',
 				dataType: 'text',
-				async: false,
 				body: { opt: 'TXT' }
 			});
 			console.dir(ajax.response);

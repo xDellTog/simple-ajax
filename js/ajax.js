@@ -1,33 +1,26 @@
 'use strict';
 
-const $ = document.querySelector.bind(document);
+class Ajax {
+	constructor({url = null, body = null, async = false, type = 'GET', dataType = 'HTML'} = {}) {
+		this.response = {};
+		this.xhr = new XMLHttpRequest();
 
-function Ajax(set) {
-	
-	this.response = {};
-
-	let url = set.url || null;
-	let body = set.body || null;
-	let async = set.async || false;
-	let type = set.type.toUpperCase() || 'GET';
-	let dataType = set.dataType.toUpperCase() || 'HTML';
-	let xhr = new XMLHttpRequest();
-
-	if (url !== null) {
-		xhr.open(type, url, async);
-		if (type === 'GET') {
-			xhr.send();
-			getDataType(this,xhr);
-		} else if (type === 'POST') {
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send(transform(body));
-			getDataType(this,xhr);
-		}	
-	} else {
-		throw new Error('URL null');
+		if (url !== null) {
+			this.xhr.open(type, url, async);
+			if (type === 'GET') {
+				this.xhr.send();
+				this.response = this.getResponse(arguments, this.xhr);
+			} else if (type === 'POST') {
+				this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				this.xhr.send(this.transform(body));
+				this.response = this.getResponse(arguments, this.xhr);
+			}	
+		} else {
+			throw new Error('URL null');
+		}
 	}
 
-	function transform(body) {
+	transform(body) {
 		let aux = JSON.stringify(body);
 		aux = aux.replace(/:/g, '=');
 		aux = aux.replace(/,/g, '&');
@@ -37,18 +30,20 @@ function Ajax(set) {
 		return aux;
 	}
 
-	function getDataType(that,xhr) {
-		if ((dataType === 'TEXT') || (dataType === 'HTML')) {
-			if ((xhr.readyState === 4) && (xhr.status === 200)) {
-				that.response = xhr.responseText;
+	getResponse(args, ...xhr) {
+		let arg = args[0];
+		
+		if ((arg.dataType.toUpperCase() === 'TEXT') || (arg.dataType.toUpperCase() === 'HTML')) {
+			if ((this.xhr.readyState === 4) && (this.xhr.status === 200)) {
+				return this.xhr.responseText;
 			} else {
-				throw new Error('Code ' + xhr.status);
+				throw new Error('Code ' + this.xhr.status);
 			}
-		} else if (dataType === 'JSON') {
-			if ((xhr.readyState === 4) && (xhr.status === 200)) {
-				that.response = JSON.parse(xhr.responseText);
+		} else if (arg.dataType.toUpperCase() === 'JSON') {
+			if ((this.xhr.readyState === 4) && (this.xhr.status === 200)) {
+				return JSON.parse(this.xhr.responseText);
 			} else {
-				throw new Error('Code ' + xhr.status);
+				throw new Error('Code ' + this.xhr.status);
 			}
 		}
 	}
