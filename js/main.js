@@ -63,8 +63,7 @@ const $ = document.querySelector.bind(document);
 				type: 'GET',
 				url: 'res/get.txt',
 				dataType: 'text',
-			});
-			console.dir(ajax.response);
+			});			
 			divResult.innerHTML += ajax.response;
 		}
 		btnPostText.onclick = function(ev) {
@@ -74,8 +73,7 @@ const $ = document.querySelector.bind(document);
 				url: 'res/index.php',
 				dataType: 'text',
 				body: { opt: 'TXT' }
-			});
-			console.dir(ajax.response);
+			});			
 			divResult.innerHTML += ajax.response;
 		}
 
