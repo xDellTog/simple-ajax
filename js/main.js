@@ -28,7 +28,7 @@ const $ = document.querySelector.bind(document);
 				type: 'POST',
 				url: 'res/index.php',
 				dataType: 'html',
-				body: { opt: 'html' }
+				body: { opt: 'HTML' }
 			});
 			divResult.innerHTML += ajax.response;
 		}
